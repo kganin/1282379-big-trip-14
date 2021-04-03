@@ -1,7 +1,7 @@
 # Проект «Большое путешествие»
 
 * Студент: [Коля Ганин](https://up.htmlacademy.ru/ecmascript/14/user/1282379).
-* Наставник: `Неизвестно`.
+* Наставник: [Виктор Кан](https://htmlacademy.ru/profile/viktorkan).
 
 ---
 
