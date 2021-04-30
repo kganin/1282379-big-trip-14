@@ -6,6 +6,7 @@ import { createEventListTemplate } from './view/event-list.js';
 import { createNewEventTemplate } from './view/new-event.js';
 import { createEventTemplate } from './view/event.js';
 import { createEditEventTemplate } from './view/edit-event.js';
+import {} from './mock/event.js';
 
 const TASK_COUNT = 3;
 
