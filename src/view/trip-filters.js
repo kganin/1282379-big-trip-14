@@ -1,16 +1,4 @@
-import dayjs from 'dayjs';
-
-const isDateExpired = (date) => {
-  return dayjs().isAfter(dayjs(date), 'm');
-};
-
-const isDateInFuture = (date) => {
-  return dayjs().isBefore(dayjs(date), 'm');
-};
-
-const isDateCurrent = (date) => {
-  return dayjs().isSame(dayjs(date), 'm');
-};
+import { isDateCurrent, isDateExpired, isDateInFuture } from '../utils';
 
 const eventToFilterMap = {
   everything: (events) => events.length,

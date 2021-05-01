@@ -1,20 +1,5 @@
 import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
-
-const getDuration = (fromDate, toDate) => {
-  dayjs.extend(duration);
-
-  const difference = dayjs(toDate).diff(dayjs(fromDate));
-  const timeDuration = dayjs.duration(difference);
-
-  if (dayjs(toDate).diff(dayjs(fromDate), 'minute') < 60) {
-    return timeDuration.format('mm[M]');
-  } else if (dayjs(toDate).diff(dayjs(fromDate), 'hour') < 24) {
-    return timeDuration.format('HH[H] mm[M]');
-  } else {
-    return timeDuration.format('DD[D] HH[H] mm[M]');
-  }
-};
+import { getDuration } from '../utils';
 
 const createEventOfferTemplate = ({title, price}) => {
   return `

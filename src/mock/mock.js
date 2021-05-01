@@ -1,4 +1,4 @@
-import { getRandomArrayElement, getRandomArray, getRandomInt } from '../utils.js';
+import { getRandomArrayElement, getRandomArray, getRandomInt } from '../utils';
 import dayjs from 'dayjs';
 
 const getType = () => {

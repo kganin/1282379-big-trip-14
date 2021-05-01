@@ -1,30 +1,4 @@
-import dayjs from 'dayjs';
-
-const getTripTitle = (events) => {
-  const cities = new Set(events.map(( {destination }) => destination.city));
-  return Array.from(cities).join(' &mdash; ');
-};
-
-const getTripDates = (events) => {
-  const fromDate = dayjs(events[0].dates[0]);
-  const toDate = dayjs(events[events.length - 1].dates[1]);
-
-  return `${fromDate.format('MMM DD')}&nbsp;&mdash;&nbsp;${toDate.format('MMM') === toDate.format('MMM') ? toDate.format('DD') : toDate.format('MMM DD')}`;
-};
-
-const getTripTotalCost = (events) => {
-  return events.reduce((accumulator, currentEvent) => {
-    return accumulator + currentEvent.price;
-  }, 0);
-};
-
-const getTripOffersCost = (events) => {
-  return events.reduce((eventsAccumulator, currentEvent) => {
-    return eventsAccumulator + currentEvent.offers.reduce((offersAccumulator, currentOffer) => {
-      return offersAccumulator + currentOffer.price;
-    },0);
-  },0);
-};
+import { getTripOffersCost, getTripTotalCost, getTripTitle, getTripDates } from '../utils';
 
 export const createTripInfoTemplate = (events) => {
   const totalTripCost = getTripTotalCost(events) + getTripOffersCost(events);

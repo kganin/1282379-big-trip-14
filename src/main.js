@@ -1,11 +1,11 @@
-import { createSiteMenuTemplate } from './view/site-menu.js';
-import { createTripInfoTemplate } from './view/trip-info.js';
-import { createTripFiltersTemplate, generateFilter } from './view/trip-filters.js';
-import { createEventsSortTemplate } from './view/events-sort.js';
-import { createEventListTemplate } from './view/event-list.js';
-import { createEventTemplate } from './view/event.js';
-import { createEditEventTemplate } from './view/edit-event.js';
-import { getEvent } from './mock/mock.js';
+import { createSiteMenuTemplate } from './view/site-menu';
+import { createTripInfoTemplate } from './view/trip-info';
+import { createTripFiltersTemplate, generateFilter } from './view/trip-filters';
+import { createEventsSortTemplate } from './view/events-sort';
+import { createEventListTemplate } from './view/event-list';
+import { createEventTemplate } from './view/event';
+import { createEditEventTemplate } from './view/edit-event';
+import { getEvent } from './mock/mock';
 
 const EVENTS_COUNT = 20;
 
@@ -20,7 +20,6 @@ const siteMenuContainer = document.querySelector('.trip-controls__navigation');
 const tripInfoContainer = document.querySelector('.trip-main');
 const tripFiltersContainer = document.querySelector('.trip-controls__filters');
 const tripEventsContainer = document.querySelector('.trip-events');
-
 
 render(tripInfoContainer, createTripInfoTemplate(events), 'afterbegin');
 render(siteMenuContainer, createSiteMenuTemplate(), 'beforeend');
