@@ -3,7 +3,8 @@ import { createElement } from '../utils';
 
 const createTripInfoTemplate = (events) => {
   const totalTripCost = getTripTotalCost(events) + getTripOffersCost(events);
-  return `<section class="trip-main__trip-info  trip-info">
+
+  return events.length === 0 ? ' ' : `<section class="trip-main__trip-info  trip-info">
   <div class="trip-info__main">
     <h1 class="trip-info__title">${getTripTitle(events)}</h1>
 

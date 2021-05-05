@@ -71,7 +71,10 @@ export const getTripTotalCost = (events) => {
 export const getTripOffersCost = (events) => {
   return events.reduce((eventsAccumulator, currentEvent) => {
     return eventsAccumulator + currentEvent.offers.reduce((offersAccumulator, currentOffer) => {
-      return offersAccumulator + currentOffer.price;
+      if (currentOffer.isChecked) {
+        return offersAccumulator + currentOffer.price;
+      }
+      return offersAccumulator;
     },0);
   },0);
 };
