@@ -1,10 +1,13 @@
-import { createSiteMenuTemplate } from './view/site-menu';
-import { createTripInfoTemplate } from './view/trip-info';
-import { createTripFiltersTemplate, generateFilter } from './view/trip-filters';
-import { createEventsSortTemplate } from './view/events-sort';
-import { createEventListTemplate } from './view/event-list';
-import { createEventTemplate } from './view/event';
-import { createEditEventTemplate } from './view/edit-event';
+import TripInfo from './view/trip-info';
+import SiteMenu from './view/site-menu';
+import TripFilters from './view/trip-filters';
+import EventsSort from './view/events-sort';
+import EventList from './view/event-list';
+import EditEvent from './view/edit-event';
+import Event from './view/event';
+
+import { RenderPosition, renderElement } from './utils';
+import { generateFilter } from './mock/filter';
 import { getEvent } from './mock/mock';
 
 const EVENTS_COUNT = 20;
@@ -12,25 +15,21 @@ const EVENTS_COUNT = 20;
 const events = new Array(EVENTS_COUNT).fill().map(getEvent).sort((a, b) => Date.parse(a.dates[0]) - Date.parse(b.dates[0]));
 const filters = generateFilter(events);
 
-const render = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
-};
-
 const siteMenuContainer = document.querySelector('.trip-controls__navigation');
 const tripInfoContainer = document.querySelector('.trip-main');
 const tripFiltersContainer = document.querySelector('.trip-controls__filters');
 const tripEventsContainer = document.querySelector('.trip-events');
 
-render(tripInfoContainer, createTripInfoTemplate(events), 'afterbegin');
-render(siteMenuContainer, createSiteMenuTemplate(), 'beforeend');
-render(tripFiltersContainer, createTripFiltersTemplate(filters), 'beforeend');
-render(tripEventsContainer, createEventsSortTemplate(), 'beforeend');
-render(tripEventsContainer, createEventListTemplate(), 'beforeend');
+renderElement(tripInfoContainer, new TripInfo(events).getElement(), RenderPosition.AFTERBEGIN);
+renderElement(siteMenuContainer, new SiteMenu().getElement(), RenderPosition.BEFOREEND);
+renderElement(tripFiltersContainer, new TripFilters(filters).getElement(), RenderPosition.BEFOREEND);
+renderElement(tripEventsContainer, new EventsSort().getElement(), RenderPosition.BEFOREEND);
+renderElement(tripEventsContainer, new EventList().getElement(), RenderPosition.BEFOREEND);
 
 const tripEventslist = document.querySelector('.trip-events__list');
-render(tripEventslist, createEditEventTemplate(events[0]), 'afterbegin');
+renderElement(tripEventslist, new EditEvent(events[0]).getElement(), RenderPosition.AFTERBEGIN);
 
 for (let i = 1; i < EVENTS_COUNT; i++) {
-  render(tripEventslist, createEventTemplate(events[i]), 'beforeend');
+  renderElement(tripEventslist, new Event(events[i]).getElement(), RenderPosition.BEFOREEND);
 }
 

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { getDuration } from '../utils';
+import { getDuration, createElement } from '../utils';
 
 const createEventOfferTemplate = ({title, price}) => {
   return `
@@ -11,7 +11,7 @@ const createEventOfferTemplate = ({title, price}) => {
   `;
 };
 
-export const createEventTemplate = ({type, destination, offers, price, dates, isFavorite}) => {
+const createEventTemplate = ({type, destination, offers, price, dates, isFavorite}) => {
   return `<li class="trip-events__item">
   <div class="event">
     <time class="event__date" datetime="${dayjs(dates[0]).format('YYYY-MM-DD')}">${dayjs(dates[0]).format('MMM DD').toUpperCase()}</time>
@@ -46,3 +46,26 @@ export const createEventTemplate = ({type, destination, offers, price, dates, is
   </div>
 </li>`;
 };
+
+export default class Event {
+  constructor(event) {
+    this._event = event;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEventTemplate(this._event);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
