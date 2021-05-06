@@ -5,13 +5,20 @@ export const RenderPosition = {
   BEFOREEND: 'beforeend',
 };
 
-export const render = (container, element, place) => {
+export const render = (container, child, place) => {
+  if (container instanceof Component) {
+    container = container.getElement();
+  }
+
+  if (child instanceof Component) {
+    child = child.getElement();
+  }
   switch (place) {
     case RenderPosition.AFTERBEGIN:
-      container.prepend(element);
+      container.prepend(child);
       break;
     case RenderPosition.BEFOREEND:
-      container.append(element);
+      container.append(child);
       break;
   }
 };
@@ -39,13 +46,4 @@ export const replace = (newChild, oldChild) => {
   }
 
   parent.replaceChild(newChild, oldChild);
-};
-
-export const remove = (component) => {
-  if (!(component instanceof Component)) {
-    throw new Error('Can remove only components');
-  }
-
-  component.getElement().remove();
-  component.removeElement();
 };
