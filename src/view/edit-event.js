@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { createElement } from '../utils';
 
 const createEditEventOfferTemplate = ({title, price, isChecked}) => {
   return `
@@ -39,7 +40,7 @@ const createEditEventPhotosListTemplate = (destination) => {
     `;
 };
 
-export const createEditEventTemplate = ({type, destination, offers, price, dates}) => {
+const createEditEventTemplate = ({type, destination, offers, price, dates}) => {
   return `<li class="trip-events__item">
   <form class="event event--edit" action="#" method="post">
     <header class="event__header">
@@ -151,3 +152,26 @@ export const createEditEventTemplate = ({type, destination, offers, price, dates
   </form>
 </li>`;
 };
+
+export default class EditEvent {
+  constructor(event) {
+    this._event = event;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEditEventTemplate(this._event);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
