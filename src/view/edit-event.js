@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { createElement } from '../utils/render';
+import Component from './component';
 
 const createEditEventOfferTemplate = ({title, price, isChecked}) => {
   return `
@@ -152,26 +152,13 @@ const createEditEventTemplate = ({type, destination, offers, price, dates}) => {
   </form>
 </li>`;
 };
-
-export default class EditEvent {
+export default class EditEvent extends Component {
   constructor(event) {
+    super();
     this._event = event;
-    this._element = null;
   }
 
   getTemplate() {
     return createEditEventTemplate(this._event);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

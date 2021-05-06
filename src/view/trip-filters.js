@@ -1,4 +1,4 @@
-import { createElement } from '../utils/render';
+import Component from './component';
 
 const createFilterItemTemplate = (filter, isChecked) => {
   const {name, count} = filter;
@@ -19,26 +19,13 @@ const createTripFiltersTemplate = (filters) => {
   <button class="visually-hidden" type="submit">Accept filter</button>
 </form>`;
 };
-
-export default class TripFilters {
+export default class TripFilters extends Component {
   constructor(filters) {
+    super();
     this._filters = filters;
-    this._element = null;
   }
 
   getTemplate() {
     return createTripFiltersTemplate(this._filters);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

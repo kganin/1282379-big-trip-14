@@ -1,5 +1,4 @@
 import { createElement } from '../utils/render';
-
 export default class Component {
   constructor() {
     if (new.target === Component) {
@@ -11,7 +10,7 @@ export default class Component {
   }
 
   getTemplate() {
-    throw new Error('Component method not implemented: getTemplate');
+    throw new Error('Component method is not implemented: getTemplate');
   }
 
   getElement() {

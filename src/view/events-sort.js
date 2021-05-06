@@ -1,4 +1,4 @@
-import { createElement } from '../utils/render';
+import Component from './component';
 
 const createEventsSortTemplate = () => {
   return `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
@@ -28,26 +28,8 @@ const createEventsSortTemplate = () => {
   </div>
 </form>`;
 };
-
-export default class EventsSort {
-  constructor() {
-    this._element = null;
-  }
-
+export default class EventsSort extends Component {
   getTemplate() {
     return createEventsSortTemplate();
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
-

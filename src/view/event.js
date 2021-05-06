@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
-import { createElement } from '../utils/render';
 import { getDuration } from '../utils/event';
+import Component from './component';
 
 const createEventOfferTemplate = ({title, price}) => {
   return `
@@ -48,25 +48,14 @@ const createEventTemplate = ({type, destination, offers, price, dates, isFavorit
 </li>`;
 };
 
-export default class Event {
+export default class Event extends Component {
   constructor(event) {
+    super();
     this._event = event;
-    this._element = null;
   }
 
   getTemplate() {
     return createEventTemplate(this._event);
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
+

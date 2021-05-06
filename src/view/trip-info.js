@@ -1,5 +1,5 @@
 import { getTripOffersCost, getTripTotalCost, getTripTitle, getTripDates } from '../utils/trip';
-import { createElement } from '../utils/render';
+import Component from './component';
 
 const createTripInfoTemplate = (events) => {
   const totalTripCost = getTripTotalCost(events) + getTripOffersCost(events);
@@ -16,25 +16,13 @@ const createTripInfoTemplate = (events) => {
   </p>
   </section>`;
 };
-export default class TripInfo {
+export default class TripInfo extends Component {
   constructor(event) {
+    super();
     this._event = event;
-    this._element = null;
   }
 
   getTemplate() {
     return createTripInfoTemplate(this._event);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
