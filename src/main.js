@@ -7,7 +7,7 @@ import EditEvent from './view/edit-event';
 import Event from './view/event';
 import NoEvent from './view/no-event';
 
-import { RenderPosition, render } from './utils';
+import { RenderPosition, render } from './utils/render';
 import { generateFilter } from './mock/filter';
 import { getEvent } from './mock/mock';
 

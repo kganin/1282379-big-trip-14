@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import { getDuration, createElement } from '../utils';
+import { createElement } from '../utils/render';
+import { getDuration } from '../utils/event';
 
 const createEventOfferTemplate = ({title, price}) => {
   return `

@@ -1,4 +1,4 @@
-import {createElement} from '../utils.js';
+import {createElement} from '../utils/render';
 
 const createNoEventTemplate = () => {
   return `<p class="trip-events__msg">

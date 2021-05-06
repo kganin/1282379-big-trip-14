@@ -1,17 +1,17 @@
 import { createElement } from '../utils/render';
 
-const createEventListTemplate = () => {
-  return `<ul class="trip-events__list">
-  </ul>`;
-};
-
-export default class EventsList {
+export default class Component {
   constructor() {
+    if (new.target === Component) {
+      throw new Error('Can\'t instantiate Component, only concrete one.');
+    }
+
     this._element = null;
+    this._callback = {};
   }
 
   getTemplate() {
-    return createEventListTemplate();
+    throw new Error('Component method not implemented: getTemplate');
   }
 
   getElement() {

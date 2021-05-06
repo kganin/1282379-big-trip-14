@@ -1,5 +1,5 @@
-import { getTripOffersCost, getTripTotalCost, getTripTitle, getTripDates } from '../utils';
-import { createElement } from '../utils';
+import { getTripOffersCost, getTripTotalCost, getTripTitle, getTripDates } from '../utils/trip';
+import { createElement } from '../utils/render';
 
 const createTripInfoTemplate = (events) => {
   const totalTripCost = getTripTotalCost(events) + getTripOffersCost(events);
