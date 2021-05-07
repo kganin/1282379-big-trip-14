@@ -1,4 +1,4 @@
-import { isDateCurrent, isDateExpired, isDateInFuture } from '../utils';
+import { isDateCurrent, isDateExpired, isDateInFuture } from '../utils/event';
 
 const eventToFilterMap = {
   everything: (events) => events.length,

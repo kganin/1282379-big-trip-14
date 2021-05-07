@@ -7,7 +7,7 @@ import EditEvent from './view/edit-event';
 import Event from './view/event';
 import NoEvent from './view/no-event';
 
-import { RenderPosition, render } from './utils';
+import { RenderPosition, render, replace } from './utils/render';
 import { generateFilter } from './mock/filter';
 import { getEvent } from './mock/mock';
 
@@ -26,11 +26,11 @@ const renderEvent = (container, event) => {
   const editEvent = new EditEvent(event);
 
   const replaceNewToEditEvent = () => {
-    container.replaceChild(editEvent.getElement(), newEvent.getElement());
+    replace(editEvent, newEvent);
   };
 
   const replaceEditToNewEvent = () => {
-    container.replaceChild(newEvent.getElement(), editEvent.getElement());
+    replace(newEvent, editEvent);
   };
 
   const closeEvent = () => {
@@ -45,13 +45,12 @@ const renderEvent = (container, event) => {
     }
   };
 
-  newEvent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
+  newEvent.setEditClickHandler(() => {
     replaceNewToEditEvent();
     document.addEventListener('keydown', onEscKeyDown);
   });
 
-  editEvent.getElement().querySelector('form').addEventListener('submit', (evt) => {
-    evt.preventDefault();
+  editEvent.setFormSubmitHandler(() => {
     closeEvent();
   });
 

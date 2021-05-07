@@ -1,28 +1,11 @@
-import { createElement } from '../utils';
+import Component from './component';
 
-const createEventListTemplate = () => {
+const createEventsListTemplate = () => {
   return `<ul class="trip-events__list">
   </ul>`;
 };
-
-export default class EventsList {
-  constructor() {
-    this._element = null;
-  }
-
+export default class EventsList extends Component {
   getTemplate() {
-    return createEventListTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+    return createEventsListTemplate();
   }
 }

@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import { getDuration, createElement } from '../utils';
+import { getDuration } from '../utils/event';
+import Component from './component';
 
 const createEventOfferTemplate = ({title, price}) => {
   return `
@@ -47,25 +48,25 @@ const createEventTemplate = ({type, destination, offers, price, dates, isFavorit
 </li>`;
 };
 
-export default class Event {
+export default class Event extends Component {
   constructor(event) {
+    super();
     this._event = event;
-    this._element = null;
+
+    this._editClickHandler = this._editClickHandler.bind(this);
   }
 
   getTemplate() {
     return createEventTemplate(this._event);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
+  _editClickHandler(evt) {
+    evt.preventDefault();
+    this._callback.editClick();
   }
 
-  removeElement() {
-    this._element = null;
+  setEditClickHandler(callback) {
+    this._callback.editClick = callback;
+    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._editClickHandler);
   }
 }
