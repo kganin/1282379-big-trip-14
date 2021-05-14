@@ -18,3 +18,17 @@ export const shuffleArray = (elements) => {
 export const getRandomArray = (elements) => shuffleArray(elements).slice(getRandomInt(0, elements.length));
 
 export const getRandomArrayElement = (elements) => elements[getRandomInt(0, elements.length - 1)];
+
+export const updateElement = (elements, update) => {
+  const index = elements.findIndex((element) => element.id === update.id);
+
+  if (index === -1) {
+    return elements;
+  }
+
+  return [
+    ...elements.slice(0, index),
+    update,
+    ...elements.slice(index + 1),
+  ];
+};

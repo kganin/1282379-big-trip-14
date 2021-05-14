@@ -158,6 +158,7 @@ export default class EditEvent extends Component {
     this._event = event;
 
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
+    this._rollupButtonClickHandler = this._rollupButtonClickHandler.bind(this);
   }
 
   getTemplate() {
@@ -166,11 +167,21 @@ export default class EditEvent extends Component {
 
   _formSubmitHandler(evt) {
     evt.preventDefault();
-    this._callback.formSubmit();
+    this._callback.formSubmit(this._event);
+  }
+
+  _rollupButtonClickHandler(evt) {
+    evt.preventDefault();
+    this._callback.rollupButtonClick();
   }
 
   setFormSubmitHandler(callback) {
     this._callback.formSubmit = callback;
-    this.getElement().querySelector('form').addEventListener('submit', this._formSubmitHandler);
+    this.getElement().querySelector('.event--edit').addEventListener('submit', this._formSubmitHandler);
+  }
+
+  setRollupButtonClickHandler(callback) {
+    this._callback.rollupButtonClick = callback;
+    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._rollupButtonClickHandler);
   }
 }

@@ -1,5 +1,7 @@
 import { getRandomArrayElement, getRandomArray, getRandomInt } from '../utils/helpers';
 import dayjs from 'dayjs';
+import { nanoid } from 'nanoid';
+
 
 const getType = () => {
   const types = [
@@ -106,6 +108,7 @@ export const getEvent = () => {
   const type = getType();
 
   return {
+    id: nanoid(),
     type: type,
     destination: getDestination(),
     offers: getOffers(type),
@@ -114,3 +117,4 @@ export const getEvent = () => {
     isFavorite: Boolean(getRandomInt(0, 1)),
   };
 };
+
