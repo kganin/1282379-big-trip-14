@@ -1,13 +1,9 @@
-import TripInfo from './view/trip-info';
+
 import SiteMenu from './view/site-menu';
 import TripFilters from './view/trip-filters';
-import EventsSort from './view/events-sort';
-import EventsList from './view/events-list';
-import EditEvent from './view/edit-event';
-import Event from './view/event';
-import NoEvent from './view/no-event';
+import BoardPresenter from './presenter/board';
 
-import { RenderPosition, render, replace } from './utils/render';
+import { render, RenderPosition } from './utils/render';
 import { generateFilter } from './mock/filter';
 import { getEvent } from './mock/mock';
 
@@ -21,57 +17,9 @@ const tripInfoContainer = document.querySelector('.trip-main');
 const tripFiltersContainer = document.querySelector('.trip-controls__filters');
 const tripEventsContainer = document.querySelector('.trip-events');
 
-const renderEvent = (container, event) => {
-  const newEvent = new Event(event);
-  const editEvent = new EditEvent(event);
+const boardPresenter = new BoardPresenter(tripEventsContainer, tripInfoContainer);
 
-  const replaceNewToEditEvent = () => {
-    replace(editEvent, newEvent);
-  };
+render(siteMenuContainer, new SiteMenu(), RenderPosition.BEFOREEND);
+render(tripFiltersContainer, new TripFilters(filters), RenderPosition.BEFOREEND);
 
-  const replaceEditToNewEvent = () => {
-    replace(newEvent, editEvent);
-  };
-
-  const closeEvent = () => {
-    replaceEditToNewEvent();
-    document.removeEventListener('keydown', onEscKeyDown);
-  };
-
-  const onEscKeyDown = (evt) => {
-    if (evt.key === 'Escape' || evt.key === 'Esc') {
-      evt.preventDefault();
-      closeEvent();
-    }
-  };
-
-  newEvent.setEditClickHandler(() => {
-    replaceNewToEditEvent();
-    document.addEventListener('keydown', onEscKeyDown);
-  });
-
-  editEvent.setFormSubmitHandler(() => {
-    closeEvent();
-  });
-
-  render(container, newEvent.getElement(), RenderPosition.BEFOREEND);
-};
-
-const renderEvents = (container, events) => {
-  const eventsListComponent = new EventsList();
-
-  if (!events.length) {
-    render(container, new NoEvent().getElement(), RenderPosition.BEFOREEND);
-  } else {
-    render(container, new EventsSort().getElement(), RenderPosition.BEFOREEND);
-    render(container, eventsListComponent.getElement(), RenderPosition.BEFOREEND);
-
-    events.forEach((event) => renderEvent(eventsListComponent.getElement(), event));
-  }
-};
-
-render(tripInfoContainer, new TripInfo(events).getElement(), RenderPosition.AFTERBEGIN);
-render(siteMenuContainer, new SiteMenu().getElement(), RenderPosition.BEFOREEND);
-render(tripFiltersContainer, new TripFilters(filters).getElement(), RenderPosition.BEFOREEND);
-
-renderEvents(tripEventsContainer, events);
+boardPresenter.init(events);
