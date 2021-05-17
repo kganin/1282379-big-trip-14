@@ -6,7 +6,7 @@ const eventToFilterMap = {
   past: (events) => events.filter((event) => isDateExpired(event.dates[1])).length,
 };
 
-export const generateFilter = (events) => {
+export const getFilter = (events) => {
   return Object.entries(eventToFilterMap).map(([filterName, countEvents]) => {
     return {
       name: filterName,

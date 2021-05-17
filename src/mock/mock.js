@@ -2,6 +2,7 @@ import { getRandomArrayElement, getRandomArray, getRandomInt } from '../utils/he
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 
+const EVENTS_COUNT = 10;
 
 const getType = () => {
   const types = [
@@ -116,5 +117,11 @@ export const getEvent = () => {
     price: getRandomInt(20, 100),
     isFavorite: Boolean(getRandomInt(0, 1)),
   };
+};
+
+export const getEvents = () => {
+  return new Array(EVENTS_COUNT)
+    .fill()
+    .map(getEvent);
 };
 
