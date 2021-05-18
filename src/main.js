@@ -4,13 +4,12 @@ import TripFilters from './view/trip-filters';
 import BoardPresenter from './presenter/board';
 
 import { render, RenderPosition } from './utils/render';
-import { generateFilter } from './mock/filter';
-import { getEvent } from './mock/mock';
+import { getFilter } from './mock/filter';
+import { getEvents } from './mock/mock';
+import {sortEventsByDate} from './utils/event.js';
 
-const EVENTS_COUNT = 10;
-
-const events = new Array(EVENTS_COUNT).fill().map(getEvent).sort((a, b) => Date.parse(a.dates[0]) - Date.parse(b.dates[0]));
-const filters = generateFilter(events);
+const events = getEvents().sort(sortEventsByDate);
+const filters = getFilter(events);
 
 const siteMenuContainer = document.querySelector('.trip-controls__navigation');
 const tripInfoContainer = document.querySelector('.trip-main');

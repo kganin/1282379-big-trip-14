@@ -1,5 +1,7 @@
 import { updateElement } from '../utils/helpers';
 import {render, RenderPosition } from '../utils/render';
+import {sortEventsByTime, sortEventsByPrice} from '../utils/event.js';
+import {SortType} from '../const.js';
 
 import EventsList from '../view/events-list';
 import EventsSort from '../view/events-sort';
@@ -12,6 +14,7 @@ export default class BoardPresenter {
     this._eventsContainer = eventsContainer;
     this._tripInfoContainer = tripInfoContainer;
     this._eventPresenter = {};
+    this._currentSortType = SortType.DAY;
 
     this._tripInfoComponent = null;
     this._sortComponent = new EventsSort();
@@ -20,11 +23,23 @@ export default class BoardPresenter {
 
     this._handleEventChange = this._handleEventChange.bind(this);
     this._handleModeChange = this._handleModeChange.bind(this);
+    this._handleSortTypeChange = this._handleSortTypeChange.bind(this);
   }
 
   init(events) {
     this._events = events.slice();
+    this._sourceEvents = events.slice();
     this._renderBoard();
+  }
+
+  _handleSortTypeChange(sortType) {
+    if (this._currentSortType === sortType) {
+      return;
+    }
+
+    this._sortEvents(sortType);
+    this._clearEvents();
+    this._renderEvents();
   }
 
   _handleModeChange() {
@@ -35,7 +50,23 @@ export default class BoardPresenter {
 
   _handleEventChange(updatedEvent) {
     this._events = updateElement(this._events, updatedEvent);
+    this._sourceEvents = updateElement(this._sourceEvents, updatedEvent);
     this._eventPresenter[updatedEvent.id].init(updatedEvent);
+  }
+  _sortEvents(sortType) {
+    switch (sortType) {
+      case SortType.TIME:
+        this._events = this._sourceEvents.slice().sort(sortEventsByTime);
+        break;
+      case SortType.PRICE:
+        this._events = this._sourceEvents.slice().sort(sortEventsByPrice);
+        break;
+      default:
+        this._events = this._sourceEvents.slice();
+        break;
+    }
+
+    this._currentSortType = sortType;
   }
 
   _renderTripInfo() {
@@ -45,10 +76,18 @@ export default class BoardPresenter {
 
   _renderSort() {
     render(this._eventsContainer, this._sortComponent, RenderPosition.BEFOREEND);
+    this._sortComponent.setSortTypeChangeHandler(this._handleSortTypeChange);
   }
 
   _renderEventList() {
     render(this._eventsContainer, this._eventsListComponent, RenderPosition.BEFOREEND);
+  }
+
+  _clearEvents() {
+    Object
+      .values(this._eventPresenter)
+      .forEach((presenter) => presenter.destroy());
+    this._eventPresenter = {};
   }
 
   _renderNoEvents() {
