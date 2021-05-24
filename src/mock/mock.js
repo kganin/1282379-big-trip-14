@@ -1,67 +1,21 @@
 import { getRandomArrayElement, getRandomArray, getRandomInt } from '../utils/helpers';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
+import { CITIES, TYPES, Offers } from '../const';
 
-const EVENTS_COUNT = 10;
+const EVENTS_COUNT = 5;
 
 const getType = () => {
-  const types = [
-    'Taxi',
-    'Bus',
-    'Train',
-    'Ship',
-    'Transport',
-    'Drive',
-    'Flight',
-    'Check-in',
-    'Sightseeing',
-    'Restaurant',
-  ];
-
-  return getRandomArrayElement(types);
+  return getRandomArrayElement(TYPES);
 };
 
-const getOffers = (type) => {
-  const offers = {
-    'Taxi': [
-      {
-        title: 'Taxi offer 1',
-        price: 120,
-      },
-      {
-        title: 'Taxi offer 2',
-        price : 100,
-      },
-      {
-        title: 'Taxi offer 3',
-        price : 60,
-      },
-      {
-        title: 'Taxi offer 4',
-        price : 80,
-      },
-      {
-        title: 'Taxi offer 5',
-        price : 50,
-      },
-    ],
-  };
-
-  return getRandomArray((type === 'Taxi' ? offers[type] : []).map((offer) => {
-    offer.isChecked = Boolean(getRandomInt(0, 1));
-    return offer;
-  }));
-
+export const getOffers = (type) => {
+  return getRandomArray((type === 'Taxi' ? Offers[type] : []));
 };
 
-const getDestination = () => {
-  const cities = [
-    'Ryazan',
-    'Moscow',
-    'Riga',
-    'London',
-    'Istanbul',
-  ];
+const getCity = () => getRandomArrayElement(CITIES);
+
+export const getDestination = (city = getCity()) => {
 
   const descriptions = [
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -71,7 +25,6 @@ const getDestination = () => {
     'Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.',
   ];
 
-  const city = getRandomArrayElement(cities);
   const description = getRandomArray(descriptions).join(' ');
 
   return {
