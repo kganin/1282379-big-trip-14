@@ -33,7 +33,7 @@ const createEventTemplate = ({type, destination, offers, price, dates, isFavorit
     </p>
     <h4 class="visually-hidden">Offers:</h4>
     <ul class="event__selected-offers">
-     ${offers.filter((offer) => offer.isChecked).map(createEventOfferTemplate).join('')}
+     ${offers.map(createEventOfferTemplate).join('')}
     </ul>
     <button class="event__favorite-btn ${ isFavorite ? 'event__favorite-btn--active' : '' }" type="button">
       <span class="visually-hidden">Add to favorite</span>

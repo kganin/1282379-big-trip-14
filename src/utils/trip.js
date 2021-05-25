@@ -1,15 +1,29 @@
 import dayjs from 'dayjs';
 
 export const getTripTitle = (events) => {
-  const cities = new Set(events.map(( {destination }) => destination.city));
-  return Array.from(cities).join(' &mdash; ');
+  const citiesSet = new Set(events.map(({destination}) => destination.city));
+  const cities = Array.from(citiesSet);
+  let tripTitle = '';
+
+  if (cities.length === 1) {
+    tripTitle = `<h1 class="trip-info__title">${cities[0]}</h1>`;
+  } else if (cities.length === 2) {
+    tripTitle = `<h1 class="trip-info__title">${cities[0]} &mdash; ${cities[1]}</h1>`;
+  } else if (cities.length === 3) {
+    tripTitle = `<h1 class="trip-info__title">${cities[0]} &mdash; ${cities[1]} &mdash; ${cities[2]}</h1>`;
+  } else if (cities.length > 3) {
+    tripTitle = `<h1 class="trip-info__title">${cities[0]} &mdash; ... &mdash; ${cities[cities.length - 1]}</h1>`;
+  }
+
+  return tripTitle;
+
 };
 
 export const getTripDates = (events) => {
-  const fromDate = dayjs(events[0].dates[0]);
-  const toDate = dayjs(events[events.length - 1].dates[1]);
+  const startDate = dayjs(events[0].dates[0]);
+  const endDate = dayjs(events[events.length - 1].dates[1]);
 
-  return `${fromDate.format('MMM DD')}&nbsp;&mdash;&nbsp;${toDate.format('MMM') === toDate.format('MMM') ? toDate.format('DD') : toDate.format('MMM DD')}`;
+  return `${startDate.format('MMM DD')}&nbsp;&mdash;&nbsp;${endDate.format('MMM') === endDate.format('MMM') ? endDate.format('DD') : endDate.format('MMM DD')}`;
 };
 
 export const getTripTotalCost = (events) => {
@@ -21,7 +35,7 @@ export const getTripTotalCost = (events) => {
 export const getTripOffersCost = (events) => {
   return events.reduce((eventsAccumulator, currentEvent) => {
     return eventsAccumulator + currentEvent.offers.reduce((offersAccumulator, currentOffer) => {
-      if (currentOffer.isChecked) {
+      if (currentOffer) {
         return offersAccumulator + currentOffer.price;
       }
       return offersAccumulator;

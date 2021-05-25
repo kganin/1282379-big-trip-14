@@ -6,7 +6,7 @@ import BoardPresenter from './presenter/board';
 import { render, RenderPosition } from './utils/render';
 import { getFilter } from './mock/filter';
 import { getEvents } from './mock/mock';
-import {sortEventsByDate} from './utils/event.js';
+import { sortEventsByDate } from './utils/event.js';
 
 const events = getEvents().sort(sortEventsByDate);
 const filters = getFilter(events);

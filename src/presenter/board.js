@@ -1,7 +1,7 @@
 import { updateElement } from '../utils/helpers';
 import {render, RenderPosition } from '../utils/render';
-import {sortEventsByTime, sortEventsByPrice} from '../utils/event.js';
-import {SortType} from '../const.js';
+import {sortEventsByTime, sortEventsByPrice} from '../utils/event';
+import {SortType} from '../const';
 
 import EventsList from '../view/events-list';
 import EventsSort from '../view/events-sort';
